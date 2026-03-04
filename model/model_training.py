@@ -8,30 +8,18 @@ from transformers import (
     Trainer,
     DataCollatorWithPadding
 )
+from model_utility import DATASET, MODEL_PATH, new_version_path_builder
+
 # reproducibility training
 from transformers import set_seed
 set_seed(42)
-
-# MODEL_PATH = "./my_finetuned_model"
-
-# if os.path.exists(MODEL_PATH):
-#     model = AutoModelForSequenceClassification.from_pretrained(MODEL_PATH)
-# else:
-#     model = AutoModelForSequenceClassification.from_pretrained(
-#         "cardiffnlp/twitter-roberta-base-sentiment-latest"
-#     )
-####
-
-####
-MODEL = "cardiffnlp/twitter-roberta-base-sentiment-latest"
-DATASET = "cardiffnlp/tweet_eval"
 
 # raw_datasets = load_dataset(DATASET, "sentiment")
 raw_datasets = load_dataset(DATASET, "sentiment", 
     split={"train": "train[:100]", "test": "test[:100]", "validation": "validation[:100]"})
 
 tokenizer = AutoTokenizer.from_pretrained(
-    MODEL
+    MODEL_PATH
 )
 
 def tokenize_function(examples):
@@ -48,7 +36,7 @@ small_train_dataset = tokenized_datasets["train"].shuffle(seed=42)#.select(range
 small_eval_dataset = tokenized_datasets["test"].shuffle(seed=42)#.select(range(100))
 
 model = AutoModelForSequenceClassification.from_pretrained(
-    MODEL,
+    MODEL_PATH,
     num_labels=3
 )
 
@@ -100,5 +88,9 @@ trainer.train()
 results = trainer.evaluate()
 print(f"\nResults:\n{results}")
 
-trainer.save_model("folder/my_finetuned_model")
-tokenizer.save_pretrained("folder/my_finetuned_model")
+# Save new model version
+# trainer.save_model("my_model_versions")
+# tokenizer.save_pretrained("my_model_versions")
+final_path = new_version_path_builder()
+trainer.save_model(final_path)
+tokenizer.save_pretrained(final_path)

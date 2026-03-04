@@ -1,20 +1,25 @@
 import os
 import re
 
-## --- choose best model from version (use config file to keep track of best)
-# TODO
-## --- END - choose best model from version (use config file to keep track of best)
+from transformers import AutoModelForSequenceClassification
 
-# ---- save new model version
-BASE_PATH = "./model_versions"
 
-def get_version():
+# BASE_PATH is the folder where all model's version will be saved
+BASE_PATH = "./my_model_versions"
+# DATASET is the dataset used to train the model
+DATASET = "cardiffnlp/tweet_eval"
+# DEFAULT_MODEL_PATH is the downloaded/original model
+DEFAULT_MODEL_PATH = "cardiffnlp/twitter-roberta-base-sentiment-latest"
+
+
+def get_highest_version_number():
     if not os.path.exists(BASE_PATH):
-        os.makedirs(BASE_PATH)
+        #os.makedirs(BASE_PATH)
+        return 0
 
     existing = [
         d for d in os.listdir(BASE_PATH)
-        if re.match(r"my_finetuned_model\d+", d)
+        if re.match(r"model_v_\d+", d)
     ]
 
     if not existing:
@@ -27,17 +32,32 @@ def get_version():
 
     return max(versions)
 
+
+def get_highest_version_model():
+    newer_version = get_highest_version_number()
+    model_path = f"{BASE_PATH}/model_v_{newer_version}"
+    # Check model path existence, if first time running or impossible to find the model use original model
+    if not os.path.exists(model_path):
+        model_path = DEFAULT_MODEL_PATH
+    return model_path
+
+
 def build_next_version(version):
     return version + 1
 
 
-def save_new_version():
-    version = build_next_version(get_version())
-    save_path = os.path.join(BASE_PATH, f"my_finetuned_model{version}")
-
+def new_version_path_builder():
+    version = build_next_version(get_highest_version_number())
+    save_path = os.path.join(BASE_PATH, f"model_v_{version}")
+    os.makedirs(save_path, exist_ok=True)
     print(f"Saved version {version}")
     return save_path
-# trainer.save_model(save_path)
-# tokenizer.save_pretrained(save_path)
 
-# ---- END - save new model version
+
+# MODEL_PATH is the model that will be used
+# In this first version it is the newer existing version of the model, if this version is not available the DEFAULT_MODEL_PATH will be used.
+# Later on, it will be possible to select the best version instead of the newest one.
+MODEL_PATH = get_highest_version_model()
+
+if __name__ == "__main__":
+    print(f"Model in use: {MODEL_PATH}")

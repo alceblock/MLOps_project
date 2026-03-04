@@ -1,6 +1,6 @@
 .venv
 results/
-my_finetuned_model/
+my_model_versions/
 .pytest_cache
 model/__pycache__
 tests/__pycache__

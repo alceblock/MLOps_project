@@ -87,11 +87,11 @@ def trainer_func(dataset, model):
     results = trainer.evaluate()
     print(f"\nResults:\n{results}")
 
-    trainer.save_model("my_finetuned_model")
-    tokenizer.save_pretrained("my_finetuned_model")
+    trainer.save_model("my_model_versions")
+    tokenizer.save_pretrained("my_model_versions")
 
     #Poi potrai caricarlo in futuro con:
     #from transformers import AutoModelForSequenceClassification
-    #model = AutoModelForSequenceClassification.from_pretrained("my_finetuned_model")
+    #model = AutoModelForSequenceClassification.from_pretrained("my_model_versions")
 
 trainer_func(DATASET, MODEL)

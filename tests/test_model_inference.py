@@ -15,9 +15,9 @@ def test_root_endpoint():
     assert response.status_code == 200, response.json
     # label
     assert "label" in body
-    assert isinstance(body["label"]) == str
+    assert isinstance(body["label"], str)
     assert body["label"] in ["positive", "neutral", "negative"]
     # confidence
     assert "confidence" in body
-    assert isinstance(body["confidence"]) == float
+    assert isinstance(body["confidence"], float)
     assert 0.0 <= body["confidence"] <= 1.0
