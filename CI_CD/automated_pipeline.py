@@ -1,10 +1,10 @@
 # Sviluppare una pipeline automatizzata per il training del modello, i test di integrazione e il deploy dell'applicazione su HuggingFace.
-def automated_training():
+def test_automated_training():
     # call training function
     print("automated training ongoing....")
 
 
-def automated_integration_test():
+def test_automated_integration_test():
     # call training function
     print("automated integration test ongoing....")
 
