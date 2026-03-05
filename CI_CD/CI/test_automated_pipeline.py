@@ -6,7 +6,7 @@ from tests.test_model_inference import test_root_endpoint
 def test_automated_training():
     # call training function
     print("automated training ongoing....")
-    assert 1 == 1
+    assert 1+1 == 2
 
 def test_automated_integration_test():
     # call training function
