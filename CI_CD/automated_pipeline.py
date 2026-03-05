@@ -8,6 +8,6 @@ def test_automated_integration_test():
     # call training function
     print("automated integration test ongoing....")
 
-def automated_deploy():
+def test_automated_deploy():
     # call training function
     print("automated deploy to hugging face ongoing....")
