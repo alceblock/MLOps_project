@@ -3,6 +3,7 @@ def automated_training():
     # call training function
     print("automated training ongoing....")
 
+
 def automated_integration_test():
     # call training function
     print("automated integration test ongoing....")
