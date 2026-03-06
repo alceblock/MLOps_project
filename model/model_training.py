@@ -8,7 +8,7 @@ from transformers import (
     Trainer,
     DataCollatorWithPadding
 )
-from model_utility import DATASET, MODEL_PATH, new_version_path_builder
+from model.model_utility import DATASET, MODEL_PATH, new_version_path_builder
 
 # reproducibility training
 from transformers import set_seed
