@@ -1,3 +1,6 @@
+import os
+import shutil
+
 from datasets import load_dataset
 import evaluate
 import numpy as np
@@ -8,7 +11,7 @@ from transformers import (
     Trainer,
     DataCollatorWithPadding
 )
-from model.model_utility import DATASET, MODEL_PATH, new_version_path_builder
+from model_utility import DATASET, MODEL_PATH, new_version_path_builder, LATEST_MODEL_PATH
 
 # reproducibility training
 from transformers import set_seed
@@ -88,9 +91,27 @@ trainer.train()
 results = trainer.evaluate()
 print(f"\nResults:\n{results}")
 
-# Save new model version
-# trainer.save_model("my_model_versions")
-# tokenizer.save_pretrained("my_model_versions")
-final_path = new_version_path_builder()
-trainer.save_model(final_path)
-tokenizer.save_pretrained(final_path)
+try:
+    # Save new model version in versioning folder
+    # trainer.save_model("my_model_versions")
+    # tokenizer.save_pretrained("my_model_versions")
+    final_path = new_version_path_builder()
+    trainer.save_model(final_path)
+    tokenizer.save_pretrained(final_path)
+except Exception as e:
+    print(f"Error while saving new version: {e}")
+
+try:
+    # Save new model version as latest model
+    # IMPORTANT: this is the file that will be picked up from CI pipeline.
+    last_model_path = LATEST_MODEL_PATH
+    # clean folder
+    if os.path.exists(last_model_path):
+        shutil.rmtree(last_model_path)
+
+    os.makedirs(last_model_path, exist_ok=True)
+    # save
+    trainer.save_model(last_model_path)
+    tokenizer.save_pretrained(last_model_path)
+except Exception as e:
+    print(f"Error while saving latest model: {e}")

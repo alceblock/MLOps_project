@@ -2,7 +2,7 @@
 FROM python:3.12-slim
 
 # Copy the current directory contents (app.py) into the container at path /app
-COPY ./CI_CD/CD /app
+COPY . /app
 
 # Set working directory
 WORKDIR /app

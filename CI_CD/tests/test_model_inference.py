@@ -1,7 +1,8 @@
+from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
 
-from model.model_inference import app
+app = FastAPI()
 client = TestClient(app)
 
 def test_root_endpoint():

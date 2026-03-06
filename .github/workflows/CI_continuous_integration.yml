@@ -13,7 +13,7 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  ci:
 
     runs-on: ubuntu-latest
 
@@ -38,3 +38,9 @@ jobs:
       run: |
         export PYTHONPATH=$PWD
         pytest
+    - name: Save trained model as artifact
+      if: success()
+      uses: actions/upload-artifact@v4
+      with:
+        name: trained-model
+        path: ${{ github.workspace }}/my_latest_model
