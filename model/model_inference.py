@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from transformers import pipeline
 
-from model.model_utility import MODEL_PATH
+from model.model_utility import LATEST_MODEL_PATH
 
 app = FastAPI()
 
@@ -11,8 +11,8 @@ app = FastAPI()
 
 sentiment_task = pipeline(
     "sentiment-analysis",
-    model=MODEL_PATH,
-    tokenizer=MODEL_PATH
+    model=LATEST_MODEL_PATH,
+    tokenizer=LATEST_MODEL_PATH
 )
 
 class TextInput(BaseModel):
