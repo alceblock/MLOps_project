@@ -57,9 +57,9 @@ def new_version_path_builder():
 
 # MODEL_PATH is the model that will be used
 # In this first version it is the newer existing version of the model, if this version is not available the DEFAULT_MODEL_PATH will be used.
-# Later on, it will be possible to select the best version instead of the latest one.
+# Later on, it will be possible to select the best version instead of the newest one.
 MODEL_PATH = get_highest_version_model()
 LATEST_MODEL_PATH = "./my_latest_model"
 
 if __name__ == "__main__":
-    print(f"Model in use: {LATEST_MODEL_PATH}")
+    print(f"Model in use: {MODEL_PATH}")

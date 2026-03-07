@@ -22,7 +22,7 @@ raw_datasets = load_dataset(DATASET, "sentiment",
     split={"train": "train[:100]", "test": "test[:100]", "validation": "validation[:100]"})
 
 tokenizer = AutoTokenizer.from_pretrained(
-    LATEST_MODEL_PATH
+    MODEL_PATH
 )
 
 def tokenize_function(examples):
@@ -39,7 +39,7 @@ small_train_dataset = tokenized_datasets["train"].shuffle(seed=42)#.select(range
 small_eval_dataset = tokenized_datasets["test"].shuffle(seed=42)#.select(range(100))
 
 model = AutoModelForSequenceClassification.from_pretrained(
-    LATEST_MODEL_PATH,
+    MODEL_PATH,
     num_labels=3
 )
 
