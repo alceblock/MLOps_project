@@ -1,5 +1,5 @@
 from fastapi.testclient import TestClient
-from model.model_inference import app
+from model_app.model_inference import app
 
 client = TestClient(app)
 

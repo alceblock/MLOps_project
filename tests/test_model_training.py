@@ -1,7 +1,7 @@
 # Test dataset valid inputs
 def test_dataset_loading():
     from datasets import load_dataset
-    from model.model_utility import DATASET
+    from model_app.model_utility import DATASET
 
     dataset = load_dataset(DATASET, "sentiment", split="train[:5]")
 
@@ -11,7 +11,7 @@ def test_dataset_loading():
 
 # Test tokenizer
 def test_tokenization():
-    from model.model_training import tokenize_function
+    from model_app.model_training import tokenize_function
 
     example = {"text": "This movie is amazing"}
 
@@ -22,7 +22,7 @@ def test_tokenization():
 
 # Test valid output model
 def test_model_forward():
-    from model.model_training import tokenizer, model
+    from model_app.model_training import tokenizer, model
 
     inputs = tokenizer("This movie is great", return_tensors="pt")
 
@@ -33,7 +33,7 @@ def test_model_forward():
 # Test compute_metrics function
 def test_compute_metrics():
     import numpy as np
-    from model.model_training import compute_metrics
+    from model_app.model_training import compute_metrics
 
     logits = np.array([[0.1,0.8,0.1],
                        [0.7,0.2,0.1]])

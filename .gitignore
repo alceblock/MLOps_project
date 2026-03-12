@@ -3,6 +3,6 @@ results/
 my_model_versions/
 my_latest_model/
 .pytest_cache
-model/__pycache__
+model_app/__pycache__
 tests/__pycache__
 playground.yml

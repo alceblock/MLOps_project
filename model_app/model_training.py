@@ -11,7 +11,7 @@ from transformers import (
     Trainer,
     DataCollatorWithPadding
 )
-from model.model_utility import DATASET, MODEL_PATH, new_version_path_builder, LATEST_MODEL_PATH
+from model_app.model_utility import DATASET, MODEL_PATH, new_version_path_builder, LATEST_MODEL_PATH
 
 # reproducibility training
 from transformers import set_seed
