@@ -20,6 +20,13 @@ from monitoring.metrics import REQUEST_COUNT, REQUEST_LATENCY, POSITIVE_COUNT, N
 
 app = FastAPI()
 
+## - s
+# Prometheus Endpoint
+@app.get("/metrics")
+def metrics():
+    return Response(generate_latest(), media_type=CONTENT_TYPE_LATEST)
+## - e
+
 sentiment_task = pipeline(
     "sentiment-analysis",
     model=MODEL_PATH,
@@ -55,13 +62,6 @@ async def predict(data: TextInput):
         "label": result["label"],
         "confidence": result["score"]
     }
-
-## - s
-# Prometheus Endpoint
-@app.get("/metrics")
-def metrics():
-    return Response(generate_latest(), media_type=CONTENT_TYPE_LATEST)
-## - e
 
 if __name__ == "__main__":
     import uvicorn
